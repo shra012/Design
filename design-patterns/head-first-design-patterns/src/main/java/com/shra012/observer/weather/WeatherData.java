@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
-@Builder(setterPrefix = "with")
 public class WeatherData implements Subject {
     @Getter(AccessLevel.NONE)
     private List<Observer> observers;
@@ -19,6 +17,7 @@ public class WeatherData implements Subject {
     private float humidity;
     private float pressure;
 
+    @Builder
     public WeatherData() {
         this.observers = new ArrayList<>();
     }

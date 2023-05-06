@@ -6,6 +6,7 @@ import com.shra012.vertx.routes.CurrentConditionsRoute;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
 
@@ -17,11 +18,6 @@ public class MainVertical extends AbstractVerticle {
     @Override
     public void start(Promise<Void> startPromise) {
         HttpServer httpServer = vertx.createHttpServer();
-        httpServer.requestHandler(
-                req ->
-                        req.response()
-                                .putHeader("content-type", "text/plain")
-                                .end("Hello from Vert.x!"));
         Router mainRouter = Router.router(vertx);
         WeatherData weatherData = WeatherData.builder().build();
         Router weatherRouter =
@@ -34,6 +30,11 @@ public class MainVertical extends AbstractVerticle {
                         .build()
                         .initializeRoutes();
         mainRouter.route("/weather/*").subRouter(weatherRouter);
+        mainRouter.route(HttpMethod.GET, "/").handler(
+                ctx ->
+                        ctx.response()
+                                .putHeader("content-type", "text/plain")
+                                .end("Hello from Vert.x!"));
         httpServer.requestHandler(mainRouter);
         httpServer.listen(
                 8080,

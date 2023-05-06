@@ -2,16 +2,18 @@ package com.shra012.observer.weather;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Builder(setterPrefix = "with")
-@AllArgsConstructor
+@Getter
 public class CurrentConditionsDisplay implements Observer, DisplayElement {
+
     private float temperature;
     private float humidity;
     private final WeatherData weatherData;
 
+    @Builder(setterPrefix = "with")
     public CurrentConditionsDisplay(WeatherData weatherData) {
         this.weatherData = weatherData;
         weatherData.registerObserver(this);
