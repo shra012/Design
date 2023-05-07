@@ -1,9 +1,11 @@
 package com.shra012.vertx;
 
 import com.shra012.observer.weather.CurrentConditionsDisplay;
+import com.shra012.observer.weather.ForecastDisplay;
 import com.shra012.observer.weather.WeatherData;
-import com.shra012.vertx.routes.CurrentConditionsRoute;
+import com.shra012.vertx.routes.CurrentConditionsDisplayRoute;
 
+import com.shra012.vertx.routes.ForecastDisplayRoute;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpMethod;
@@ -21,7 +23,7 @@ public class MainVertical extends AbstractVerticle {
         Router mainRouter = Router.router(vertx);
         WeatherData weatherData = WeatherData.builder().build();
         Router weatherRouter =
-                CurrentConditionsRoute.builder()
+                CurrentConditionsDisplayRoute.builder()
                         .withCurrentConditionsDisplay(
                                 CurrentConditionsDisplay.builder()
                                         .withWeatherData(weatherData)
@@ -29,7 +31,10 @@ public class MainVertical extends AbstractVerticle {
                         .withVertx(vertx)
                         .build()
                         .initializeRoutes();
-        mainRouter.route("/weather/*").subRouter(weatherRouter);
+        Router forecastRouter = ForecastDisplayRoute.builder().withForecastDisplay(new ForecastDisplay(weatherData)).build().initializeRoutes();
+        mainRouter.route("/weather/*")
+                .subRouter(weatherRouter);
+        mainRouter.route("/forecast/*").subRouter(forecastRouter);
         mainRouter.route(HttpMethod.GET, "/").handler(
                 ctx ->
                         ctx.response()
