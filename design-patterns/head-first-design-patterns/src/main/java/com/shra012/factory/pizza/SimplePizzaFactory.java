@@ -1,4 +1,4 @@
-package com.shra012.factory.pizzas;
+package com.shra012.factory.pizza;
 
 
 public class SimplePizzaFactory {
