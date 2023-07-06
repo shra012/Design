@@ -1,8 +1,9 @@
 package com.shra012.templatemethod.barista;
 
-public interface CaffeineBeverage {
+@SuppressWarnings("java:S1610")
+public abstract class CaffeineBeverage {
 
-    default void prepareRecipe() {
+    final void prepareRecipe() {
         boilWater();
         brew();
         pourInCup();
@@ -13,11 +14,11 @@ public interface CaffeineBeverage {
 
     abstract String addCondiments();
 
-    default String boilWater() {
+    String boilWater() {
         return "Boiling water";
     }
 
-    default String pourInCup() {
+    String pourInCup() {
         return "Pouring into cup";
     }
 }

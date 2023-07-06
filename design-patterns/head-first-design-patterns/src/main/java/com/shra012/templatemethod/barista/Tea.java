@@ -1,6 +1,6 @@
 package com.shra012.templatemethod.barista;
 
-public class Tea implements CaffeineBeverage {
+public class Tea extends CaffeineBeverage {
     @Override
     public String brew() {
         return "Steeping the tea";
