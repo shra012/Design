@@ -12,6 +12,7 @@ import java.util.Random;
 public class ForecastDisplayRoute extends CommonDisplayRoute {
     private final ForecastDisplay forecastDisplay;
     private final Random random = new Random();
+    @Override
     public Router initializeRoutes() {
         Router router = super.initializeRoutes();
         router.route(HttpMethod.GET, "/")

@@ -1,7 +1,6 @@
 package com.shra012.observer.weather;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 

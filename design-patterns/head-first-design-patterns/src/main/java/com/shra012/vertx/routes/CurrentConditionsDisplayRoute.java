@@ -14,6 +14,7 @@ import java.util.Random;
 public class CurrentConditionsDisplayRoute extends CommonDisplayRoute {
     private final CurrentConditionsDisplay currentConditionsDisplay;
     private final Random random = new Random();
+    @Override
     public Router initializeRoutes() {
         Router router = super.initializeRoutes();
         router.route(HttpMethod.GET, "/currentConditions")
