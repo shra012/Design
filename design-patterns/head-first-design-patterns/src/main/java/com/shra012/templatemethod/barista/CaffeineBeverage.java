@@ -7,7 +7,9 @@ public abstract class CaffeineBeverage {
         boilWater();
         brew();
         pourInCup();
-        addCondiments();
+        if (customerWantsCondiments()) {
+            addCondiments();
+        }
     }
 
     abstract String brew();
@@ -20,5 +22,9 @@ public abstract class CaffeineBeverage {
 
     String pourInCup() {
         return "Pouring into cup";
+    }
+
+    boolean customerWantsCondiments() {
+        return true;
     }
 }

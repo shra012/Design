@@ -12,7 +12,7 @@ class BaristaTests {
 
     @Test
     void shouldBrewCoffee(){
-        Coffee coffee = spy(new Coffee());
+        Coffee coffee = spy(new Coffee(true));
         coffee.prepareRecipe();
         verify(coffee, times(1)).boilWater();
         verify(coffee, times(1)).brew();
@@ -26,7 +26,7 @@ class BaristaTests {
 
     @Test
     void shouldSteepTea(){
-        Tea tea = spy(new Tea());
+        Tea tea = spy(new Tea(true));
         tea.prepareRecipe();
         verify(tea, times(1)).boilWater();
         verify(tea, times(1)).brew();
@@ -36,5 +36,18 @@ class BaristaTests {
         Assertions.assertEquals("Steeping the tea", tea.brew());
         Assertions.assertEquals("Pouring into cup", tea.pourInCup());
         Assertions.assertEquals("Adding Lemon", tea.addCondiments());
+    }
+
+    @Test
+    void shouldSteepBlackTea(){
+        Tea tea = spy(new Tea(false));
+        tea.prepareRecipe();
+        verify(tea, times(1)).boilWater();
+        verify(tea, times(1)).brew();
+        verify(tea, times(1)).pourInCup();
+        verify(tea, times(0)).addCondiments();
+        Assertions.assertEquals("Boiling water", tea.boilWater());
+        Assertions.assertEquals("Steeping the tea", tea.brew());
+        Assertions.assertEquals("Pouring into cup", tea.pourInCup());
     }
 }
